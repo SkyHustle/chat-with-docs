@@ -1,9 +1,12 @@
+"use client";
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
-import { ArrowRight } from "lucide-react";
+import { useUser, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
+    const { isSignedIn, user, isLoaded } = useUser();
+
     return (
         <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
             <MaxWidthWrapper>
@@ -15,7 +18,7 @@ const Navbar = () => {
                     {/* <MobileNav isAuth={!!user} /> */}
 
                     <div className="hidden items-center space-x-4 sm:flex">
-                        {!false ? (
+                        {!isSignedIn ? (
                             <>
                                 <Link
                                     href="/pricing"
@@ -27,21 +30,13 @@ const Navbar = () => {
                                     Pricing
                                 </Link>
                                 <Link
-                                    href="/"
+                                    href="/auth/sign-in"
                                     className={buttonVariants({
                                         variant: "ghost",
                                         size: "sm",
                                     })}
                                 >
-                                    Sign in
-                                </Link>
-                                <Link
-                                    href="/"
-                                    className={buttonVariants({
-                                        size: "sm",
-                                    })}
-                                >
-                                    Get started <ArrowRight className="ml-1.5 h-5 w-5" />
+                                    Sign in/up
                                 </Link>
                             </>
                         ) : (
@@ -55,6 +50,7 @@ const Navbar = () => {
                                 >
                                     Dashboard
                                 </Link>
+                                <UserButton afterSignOutUrl="/dashboard" />
                             </>
                         )}
                     </div>
