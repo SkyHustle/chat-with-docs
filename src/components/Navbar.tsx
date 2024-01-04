@@ -2,7 +2,7 @@
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
-import { useUser, UserButton } from "@clerk/nextjs";
+import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 
 const Navbar = () => {
     const { isSignedIn, user, isLoaded } = useUser();
@@ -36,7 +36,7 @@ const Navbar = () => {
                                         size: "sm",
                                     })}
                                 >
-                                    Sign in/up
+                                    Sign In/Up
                                 </Link>
                             </>
                         ) : (
@@ -50,7 +50,7 @@ const Navbar = () => {
                                 >
                                     Dashboard
                                 </Link>
-                                <UserButton afterSignOutUrl="/dashboard" />
+                                <UserButton afterSignOutUrl="/" />
                             </>
                         )}
                     </div>
